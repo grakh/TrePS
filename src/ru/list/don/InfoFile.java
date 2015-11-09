@@ -3,6 +3,8 @@ package ru.list.don;
 import java.io.*;
 import java.nio.charset.Charset;
 
+import javax.swing.JOptionPane;
+
 class InfoFile {
 	
 	File infoFile;
@@ -23,6 +25,7 @@ class InfoFile {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Info File not found!",null, JOptionPane.ERROR_MESSAGE);
 		} 
 		
 

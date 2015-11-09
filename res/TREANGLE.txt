@@ -3,22 +3,28 @@ gsave
 %!PS-Adobe-1.0
 % По умолчанию, постскрипт использует единицу измерения 1 пункт=1/72 дюйма, 
 /infoFile (1.14 FAH ) def
+            % currentpagedevice /PageSize get  %% stack has array [width height]
+            % 0 0 moveto                       %% start at bottom left
 	0 0 translate
-	0 setgray
-	fill
+	% 0 setgray
+	% /DeviceRGB setcolorspace
+    % 0.96 0.96 0.96 setcolor
+	% fill
 72 25.4 div	% 1 мм = 72/25.4 пунктов
 dup		% дублировать значение на вершине стека
 /mm 72 25.4 div  def
 /rect 5 mm mul def
 /pagewidth currentpagedevice /PageSize get 0 get def
 /pageheight currentpagedevice /PageSize get 1 get def
+	0 0 translate
 /mmh pageheight 8 sub def
 /text {
 	/Helvetica findfont	% взять шрифт Helvetica
-	3 scalefont	% растянуть до размера 8 (у нас - мм!)
+	2 scalefont	% растянуть до размера 8 (у нас - мм!)
 	setfont		% установить выбранный шрифт
 	scale		% растянуть в это количество раз по обеим координатам
   	0 0 moveto	% перейти в точку (0мм, 0мм)
+
     	infoFile show	% написать слово текущим шрифтом
        } def
 gsave

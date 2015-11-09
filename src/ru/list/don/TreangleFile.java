@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 			
 			path = new File("").getAbsolutePath();
 
-			System.out.println(path+"/res/TREANGLE.txt");
+			//System.out.println(path+"/res/TREANGLE.txt");
 
 			//path = new TreangleFile().getClass().getResource("/").toString();
 			//path = path.substring(path.indexOf("/"), path.lastIndexOf("/"));
@@ -36,8 +36,8 @@ import java.nio.charset.Charset;
 			//System.out.println(path+"/res/TREANGLE.txt");
 			
 			treangleFile = new File(path+"/res/TREANGLE.txt");
-			System.out.println(treangleFile.exists());
-			System.out.println(treangleFile.getName());
+			//System.out.println(treangleFile.exists());
+			//System.out.println(treangleFile.getName());
 			
 			try {
 				InputStream reader = new FileInputStream(treangleFile);
@@ -61,6 +61,11 @@ import java.nio.charset.Charset;
 			
 
 			return line;
+		}
+		
+		int count(){
+			return line.length;
+			
 		}
 	
 }

@@ -447,12 +447,12 @@ public class GUIMain {
 			
 			kontrAgent.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
 					namber.getText(), route.getText(), countPoliner.getText()));
-			namber.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
-					namber.getText(), route.getText(), countPoliner.getText()));
-			photoPolimer.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
-					namber.getText(), route.getText(), countPoliner.getText()));
-			route.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
-					namber.getText(), route.getText(), countPoliner.getText()));
+			//namber.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
+					//namber.getText(), route.getText(), countPoliner.getText()));
+			//photoPolimer.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
+					//namber.getText(), route.getText(), countPoliner.getText()));
+			//route.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
+					//namber.getText(), route.getText(), countPoliner.getText()));
 			}
 		
 		}
@@ -495,7 +495,7 @@ public class GUIMain {
                        okStatus.setText(Pol+"_"+Ag.substring(0, Ag.indexOf(" "))+"_"+namber+"_"+route+"_"+count+"-");
                    }
               // });
-	       
+	      
 		}
 	
 	class FileRun implements ActionListener{

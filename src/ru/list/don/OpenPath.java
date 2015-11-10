@@ -19,11 +19,14 @@ import javax.swing.JOptionPane;
 
 public class OpenPath {
 	String line;
+	
     URL url = OpenPath.class.getProtectionDomain().getCodeSource().getLocation();
-    String path = url.toString();
-    
+	//String path = OpenPath.class.getResourceAsStream("res/Path.txt").toString();
+   String path = url.toString();
+
 	
 	String out() throws IOException{
+		//System.out.println(path);
 		try {
 			path = new File("").getAbsolutePath();
 			File r = new File(path+"/res/Path.txt");

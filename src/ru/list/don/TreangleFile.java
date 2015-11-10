@@ -40,7 +40,8 @@ import java.nio.charset.Charset;
 			//System.out.println(treangleFile.getName());
 			
 			try {
-				InputStream reader = new FileInputStream(treangleFile);
+				//InputStream reader = new FileInputStream(treangleFile);
+				InputStream reader = TreangleFile.class.getResourceAsStream("TREANGLE.txt");
 				InputStreamReader isr = new InputStreamReader(reader, Charset.forName("UTF-8"));
 				BufferedReader buffer = new BufferedReader(isr);
 				

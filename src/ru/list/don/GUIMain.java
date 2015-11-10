@@ -564,7 +564,7 @@ public class GUIMain {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru","Version 1.4", JOptionPane.CLOSED_OPTION);
+			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru","Version 1.5", JOptionPane.CLOSED_OPTION);
 			
 			}
 		

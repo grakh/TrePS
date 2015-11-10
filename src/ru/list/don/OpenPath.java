@@ -18,20 +18,37 @@ import java.nio.charset.Charset;
 import javax.swing.JOptionPane;
 
 public class OpenPath {
-	String line;
+	String line, path="";
 	
-    URL url = OpenPath.class.getProtectionDomain().getCodeSource().getLocation();
-	//String path = OpenPath.class.getResourceAsStream("res/Path.txt").toString();
-   String path = url.toString();
 
 	
 	String out() throws IOException{
-		//System.out.println(path);
+		path = OpenPath.class.getProtectionDomain().getCodeSource().getLocation().toString();
+		path = path.substring(path.indexOf("/")+1, path.lastIndexOf("/"));
+
+		//InputStream path = OpenPath.class.getResourceAsStream("res/Path.txt");
+		
+		//System.out.println(OpenPath.class.getResource("Path.txt"));
+		//JOptionPane.showMessageDialog(null,OpenPath.class.getResourceAsStream("Path.txt").read(),null, JOptionPane.OK_OPTION);; 
+		//path = path.substring(path.indexOf("/")+1, path.lastIndexOf("/"));
+		//JOptionPane.showMessageDialog(null,path,null, JOptionPane.OK_OPTION);
+		
 		try {
-			path = new File("").getAbsolutePath();
-			File r = new File(path+"/res/Path.txt");
-			//System.out.println(infoFile.exists());
+			//path = new File("").getAbsolutePath();
+			
+			//System.out.println(path);
+			File r = new File(path+"/Path.res");
+			if(!r.exists()) {
+				   //Создаем его.
+				   r.createNewFile();
+				}
+			//File r = new File(cl.getResource("res/Path.txt"));
+			//System.out.println(cl.getResource("res/Path.txt"));
 			InputStream reader = new FileInputStream(r);
+			
+			//System.out.println(OpenPath.class.getResource("Path.txt"));
+			//InputStream reader = OpenPath.class.getResourceAsStream("Path.txt");
+			
 			InputStreamReader isr = new InputStreamReader(reader, Charset.forName("UTF-8"));
 			BufferedReader buffer = new BufferedReader(isr);
 			
@@ -51,9 +68,12 @@ public class OpenPath {
 
 	void in(String line) throws IOException{
 		try {
-			path = new File("").getAbsolutePath();
-			FileWriter w = new FileWriter(path+"/res/Path.txt");
-		
+			path = OpenPath.class.getProtectionDomain().getCodeSource().getLocation().toString();
+			path = path.substring(path.indexOf("/")+1, path.lastIndexOf("/"));
+
+			//path = new File("").getAbsolutePath();
+			//FileWriter w = new FileWriter(path+"/res/Path.txt");
+			FileWriter w = new FileWriter(path+"/Path.res");
 			
 				w.write(line);
 				

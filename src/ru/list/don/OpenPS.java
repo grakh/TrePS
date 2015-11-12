@@ -45,7 +45,7 @@ class OpenPS {
         
         TreangleFile treangle = new TreangleFile();
         try {
-			treangleLine = treangle.onLoad();
+			treangleLine = treangle.onLoad(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

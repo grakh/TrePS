@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
  class TreangleFile {
 
 	File treangleFile;
-		
+	String trF = "TREANGLE.txt";	
 		
 		int i=0;
 
@@ -24,9 +24,12 @@ import java.nio.charset.Charset;
 
 
 				
-		String[] onLoad() throws IOException{
+		String[] onLoad(boolean trFile) throws IOException{
+			
+			if (trFile) trF = "OTREANGLE.txt";
 			
 			path = new File("").getAbsolutePath();
+			System.out.println(trF);
 
 			//System.out.println(path+"/res/TREANGLE.txt");
 
@@ -35,13 +38,13 @@ import java.nio.charset.Charset;
 			//path = path.substring(path.indexOf("/"), path.lastIndexOf("/"));
 			//System.out.println(path+"/res/TREANGLE.txt");
 			
-			treangleFile = new File(path+"/res/TREANGLE.txt");
+			treangleFile = new File(path+"/res/"+trF);
 			//System.out.println(treangleFile.exists());
 			//System.out.println(treangleFile.getName());
 			
 			try {
 				//InputStream reader = new FileInputStream(treangleFile);
-				InputStream reader = TreangleFile.class.getResourceAsStream("TREANGLE.txt");
+				InputStream reader = TreangleFile.class.getResourceAsStream(trF);
 				InputStreamReader isr = new InputStreamReader(reader, Charset.forName("UTF-8"));
 				BufferedReader buffer = new BufferedReader(isr);
 				

@@ -38,6 +38,7 @@ public class GUIMain {
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	JList listFiles = new JList(lm1);
 	OpenFolderPS info1 = new OpenFolderPS();
+	public boolean trFile =false;
 	
 	public void start() {
 		
@@ -425,6 +426,7 @@ public class GUIMain {
 			QuantyFiles qFiles = new QuantyFiles(listik);
 			try {
 				count=qFiles.openInfo();
+				trFile  = qFiles.tFile();
 				System.out.println(count);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -508,7 +510,7 @@ public class GUIMain {
 			buttonInfo.setEnabled(false);
 			
 
-				RunFiles qFiles = new RunFiles(listik, path, count, progressBar, okStatus.getText());
+				RunFiles qFiles = new RunFiles(listik, path, count, progressBar, okStatus.getText(), trFile);
 				Thread t = new Thread(qFiles);
 				t.start();
 				//System.out.println(count);
@@ -564,7 +566,7 @@ public class GUIMain {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru","Version 1.5", JOptionPane.CLOSED_OPTION);
+			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru","Version 1.8", JOptionPane.CLOSED_OPTION);
 			
 			}
 		

@@ -11,11 +11,13 @@ import java.nio.charset.Charset;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class QuantyFiles {
 	String[] list;
 	File qFile;
 	int counter=0, enumStrok=0;
+	private boolean trFile =false;
 	
 	QuantyFiles(String[] list) {
 
@@ -28,6 +30,11 @@ public class QuantyFiles {
 		qFile = new File(list[i]);
 		CharSequence cs1 = "%%EndPageSetup";
 		CharSequence cs2 = "%TREANGL";
+		CharSequence cs61 = "90 rotate";
+		CharSequence cs7 = "Adobe_AGM_Core/begin";
+		//System.out.println(line);
+		//if (line.contains(cs5)) line = "\n";
+		//if (line.contains(cs6)) line = "\n";
 		 //JFrame frame = new JFrame("JOptionPane showMessageDialog example");
 		
 		try {
@@ -46,6 +53,7 @@ public class QuantyFiles {
 						if (line.contains(cs2)) {JOptionPane.showMessageDialog(null, "The file was modified!",null, JOptionPane.ERROR_MESSAGE);
 						counter=0; break;};
 						//System.out.println(line);
+						if (line.contains(cs61)||line.contains(cs7)) trFile =true;
 						if (line.contains(cs1)) counter++;
 						enumStrok++;
 					
@@ -63,6 +71,10 @@ public class QuantyFiles {
 	}
 		int enumLine(){
 			return enumStrok;
+		}
+		
+		boolean tFile(){
+			return trFile;
 		}
 }
 	

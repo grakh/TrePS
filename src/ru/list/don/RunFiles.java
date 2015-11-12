@@ -32,16 +32,18 @@ public class RunFiles implements Runnable{
 	RandomAccessFile dFile;
 	private String pathik;
 	JProgressBar progressBar;
-	private boolean br2=false, br3=false;
+	private boolean br2=false, br3=false, trFile=false;
+	String lineRotate = "";
 	
 	
-	RunFiles(String[] list, String pathik, int bar, JProgressBar progressBar,String status) {
+	RunFiles(String[] list, String pathik, int bar, JProgressBar progressBar,String status, boolean trFile) {
 
 		this.list = list;
 		this.pathik= pathik;
 		this.bar = bar;
 		this.progressBar = progressBar;
 		this.status = status;
+		this.trFile = trFile;
 	}
 	
 	public void run(){
@@ -71,7 +73,7 @@ public class RunFiles implements Runnable{
 		TreangleFile tFile = new TreangleFile();
 		treangle = new String[tFile.count()];
 		try {
-			treangle = tFile.onLoad();
+			treangle = tFile.onLoad(trFile);
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -80,7 +82,7 @@ public class RunFiles implements Runnable{
 		
 		try {
 			InputStream reader = new FileInputStream(qFile);
-			InputStreamReader isr = new InputStreamReader(reader, Charset.forName("UTF-8"));
+			InputStreamReader isr = new InputStreamReader(reader, Charset.forName("US-ASCII"));
 			BufferedReader buffer = new BufferedReader(isr);
 			
 	       /*  OutputStream f = new FileOutputStream("File.txt", true);
@@ -104,7 +106,7 @@ public class RunFiles implements Runnable{
 						while ((line = buffer.readLine()) != null) {
 							
 							if (line.contains(cs4)) br=false;
-							if (br) line = trimLine(line);
+							if (br) lineRotate = trimLine(line);
 							if (line.contains(cs3)) br=true;
 							
 							if (line.contains(cs1)) br2=false;
@@ -119,7 +121,7 @@ public class RunFiles implements Runnable{
 							
 								counter++;
 								treangle[4] = "/infoFile ("+status+counter+linePlate+") def";
-								
+								treangle[8] = lineRotate;
 								//System.out.println(bar1);
 								bar1=bar1+bar;
 								setBar(bar1);
@@ -172,12 +174,17 @@ public class RunFiles implements Runnable{
 				
 		CharSequence cs5 = "Tl";
 		CharSequence cs6 = "rotate";
-		
+		CharSequence cs61 = "90 rotate";
 		//System.out.println(line);
-		if (line.contains(cs5)) line = "\n";
-		if (line.contains(cs6)) line = "\n";
+		if (line.contains(cs5)) {
+			String[] lR = line.split(" ");
+			lineRotate = lR[0]+" floor neg "+lR[1]+" floor neg translate\n";
+			System.out.println(lineRotate);
+		};
+		//if (line.contains(cs6)) line = "\n";
+		//if (line.contains(cs61)) trFile=true;
 		
-		return line;
+		return lineRotate;
 	}
 	
 	String trimLineIn(String line){
@@ -186,7 +193,7 @@ public class RunFiles implements Runnable{
 		if (line.contains(cs7)) br3 = true;
 		if (br3) {if (line.contains(cs8)) br3 = false; line = "\n";}
 		
-
+		//trFile=true;
 		//System.out.println(line);
 		return line;
 	}

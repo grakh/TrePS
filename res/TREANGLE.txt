@@ -1,11 +1,15 @@
 %TREANGL
 gsave
 %!PS-Adobe-1.0
-% По умолчанию, постскрипт использует единицу измерения 1 пункт=1/72 дюйма, 
+ 
 /infoFile (1.14 FAH ) def
-            % currentpagedevice /PageSize get  %% stack has array [width height]
-            % 0 0 moveto                       %% start at bottom left
-	0 0 translate
+            %currentpagedevice /PageSize get == flush  %% stack has array [width height]
+            %-500 -500 moveto 
+            %-2323 -327 translate
+           170 99 translate
+
+			0 0 moveto 
+
 	% 0 setgray
 	% /DeviceRGB setcolorspace
     % 0.96 0.96 0.96 setcolor
@@ -14,44 +18,57 @@ gsave
 dup		% дублировать значение на вершине стека
 /mm 72 25.4 div  def
 /rect 5 mm mul def
+/movadd 0.5 mm mul def
+/movsub movadd neg def
+        
+
 /pagewidth currentpagedevice /PageSize get 0 get def
 /pageheight currentpagedevice /PageSize get 1 get def
-	0 0 translate
+
 /mmh pageheight 8 sub def
+
+/W pagewidth movadd sub def
+/H pageheight movadd sub def
+/Ws pagewidth movadd add def
+/Hs pageheight movadd add def
+
 /text {
 	/Helvetica findfont	% взять шрифт Helvetica
 	2 scalefont	% растянуть до размера 8 (у нас - мм!)
 	setfont		% установить выбранный шрифт
 	scale		% растянуть в это количество раз по обеим координатам
-  	0 0 moveto	% перейти в точку (0мм, 0мм)
-
-    	infoFile show	% написать слово текущим шрифтом
+  	0 movadd moveto	% перейти в точку (0мм, 0мм)
+	    	infoFile show	% написать слово текущим шрифтом
        } def
 gsave
-	rect mmh translate
+	rect 0 translate
 	text
 grestore
+
 /treangl {
+newpath
 	0 rect moveto
 	0 0 lineto
 	rect 0 lineto
 	0.6 setlinewidth
 	stroke
-              } def
-	0 0 translate
-	treangl
+         } def
 gsave
-	pagewidth pageheight translate
+	movadd movadd translate
+	treangl
+grestore
+gsave
+	H W translate
 	180 rotate
 	treangl
 grestore
 gsave
-	pagewidth 0 translate
+	H movadd translate
 	90 rotate
 	treangl
 grestore
 gsave
-	0 pageheight translate
+	movadd W translate
 	270 rotate
 	treangl
 grestore

@@ -19,7 +19,7 @@ class InfoFile {
 			BufferedReader buffer = new BufferedReader(isr);
 			
 				line = buffer.readLine();
-				
+
 				
 			reader.close();	
 		} catch (FileNotFoundException e) {

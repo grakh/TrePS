@@ -30,7 +30,7 @@ public class GUIMain {
 	String[] infoLine, listik, treangle;
     JProgressBar progressBar;
     JScrollPane scroll;
-    String path, pathOpen;
+    String path, pathOpen, version = "Version 2.0b";
 	int count = 0;
 	OpenPath oPath = new OpenPath();
     
@@ -49,7 +49,7 @@ public class GUIMain {
 			e.printStackTrace();
 		}
 		
-		mainForm = new JFrame("Treangle for PostScript");
+		mainForm = new JFrame("Treangle for PostScript, "+version);
 		menuBar = new JMenuBar();
 		mainForm.setJMenuBar(menuBar);
 		JMenu fileBar = new JMenu("File");
@@ -566,7 +566,7 @@ public class GUIMain {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru","Version 1.8", JOptionPane.CLOSED_OPTION);
+			JOptionPane.showMessageDialog(null, "Made by S.Klimov\nfor OptimasmArt Ltd.\ne-mail: don@list.ru",version, JOptionPane.CLOSED_OPTION);
 			
 			}
 		

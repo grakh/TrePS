@@ -1,7 +1,11 @@
 package ru.list.don;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +28,8 @@ import javax.swing.JProgressBar;
 public class RunFiles implements Runnable{
 	String[] list, treangle;
 	File qFile;
+	byte bytein;
+	Byte[] byteAr = null;
 	//FileWriter dFile;
 	int counter=0, bar=0, bar1=0;
 	String line, listps, status, linePlate;
@@ -66,6 +72,8 @@ public class RunFiles implements Runnable{
 		CharSequence cs4 = "%%EndSetup";
 		CharSequence cs9 = "%%BeginPageSetup";
 		CharSequence cs10 = "%%PlateColor:";
+		char cs = '\n';
+		
 
 		boolean breakBool = false;
 		 //JFrame frame = new JFrame("JOptionPane showMessageDialog example");
@@ -81,9 +89,12 @@ public class RunFiles implements Runnable{
 
 		
 		try {
-			InputStream reader = new FileInputStream(qFile);
-			InputStreamReader isr = new InputStreamReader(reader, Charset.forName("US-ASCII"));
-			BufferedReader buffer = new BufferedReader(isr);
+			//InputStream reader = new FileInputStream(qFile);
+			//InputStreamReader isr = new InputStreamReader(reader, Charset.forName("US-ASCII"));
+			//BufferedReader buffer = new BufferedReader(isr);
+			
+			DataInputStream buffer = new DataInputStream( new BufferedInputStream(new FileInputStream(qFile)));
+			DataOutputStream dFile = new DataOutputStream( new BufferedOutputStream(new FileOutputStream(listps)));
 			
 	       /*  OutputStream f = new FileOutputStream("File.txt", true);
 	            OutputStreamWriter writer = new OutputStreamWriter(f);
@@ -94,17 +105,25 @@ public class RunFiles implements Runnable{
 	                out.flush();
 	            }*/
 			
-			dFile = new RandomAccessFile (listps, "rw");
+			//dFile = new RandomAccessFile (listps, "rw");
 			
 			
 			
 				String line;
 				boolean br = false;
 				br2=false;
-				
+				//int j=0;
 					try {
-						while ((line = buffer.readLine()) != null) {
-							
+						while (buffer.available() != 0) {
+			//bytein = buffer.readByte();
+			//byteAr[j] = bytein;
+			//j++;
+							line=buffer.readLine()+"\n";			
+		//	if ((char)bytein!=cs){	
+				
+				//line=byteAr.toString()+"\n";
+				
+		//line = (Char)buffer.readByte()) != null		
 							if (line.contains(cs4)) br=false;
 							if (br) lineRotate = trimLine(line);
 							if (line.contains(cs3)) br=true;
@@ -115,8 +134,8 @@ public class RunFiles implements Runnable{
 							
 							if (line.contains(cs10)) linePlate = line.substring(12);
 														
-							dFile.writeBytes(line+"\n");
-							
+							dFile.writeBytes(line);
+																					
 							if (line.contains(cs1)){
 							
 								counter++;
@@ -126,30 +145,19 @@ public class RunFiles implements Runnable{
 								bar1=bar1+bar;
 								setBar(bar1);
 								for(String date: treangle) {dFile.writeBytes(date+"\n");
-								if (date.contains(cs2)) break;
+															if (date.contains(cs2)) break;
 										}
 									}
-							
-								}
+							//byteAr.clear();
+								//}
+						}
+						dFile.flush();
+						buffer.close();
+						dFile.close();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					};
-							
-					
-					
-					
-
-				
-				//dstChannel.close();
-				try {
-					reader.close();
-					dFile.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				
 				
 				
 		} catch (FileNotFoundException e) {
@@ -189,11 +197,15 @@ public class RunFiles implements Runnable{
 	
 	String trimLineIn(String line){
 		CharSequence cs7 = "Adobe_AGM_Core/begin";
+		//CharSequence cs71 = "Adobe_AGM_Utils begin";
 		CharSequence cs8 = "Adobe_AGM_Core/end";
+		//CharSequence cs81 = "Adobe_AGM_Image/ps gx";
+		
+		//if (line.contains(cs7)||line.contains(cs71)) br3 = true;
+		//if (br3) {if (line.contains(cs8)||line.contains(cs81)) br3 = false; line = "\n";}
 		if (line.contains(cs7)) br3 = true;
 		if (br3) {if (line.contains(cs8)) br3 = false; line = "\n";}
-		
-		//trFile=true;
+				//trFile=true;
 		//System.out.println(line);
 		return line;
 	}

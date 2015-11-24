@@ -40,6 +40,7 @@ public class RunFiles implements Runnable{
 	JProgressBar progressBar;
 	private boolean br2=false, br3=false, trFile=false;
 	String lineRotate = "";
+	//private RandomAccessFile buffer;
 	
 	
 	RunFiles(String[] list, String pathik, int bar, JProgressBar progressBar,String status, boolean trFile) {
@@ -106,24 +107,41 @@ public class RunFiles implements Runnable{
 	            }*/
 			
 			//dFile = new RandomAccessFile (listps, "rw");
+			//buffer = new RandomAccessFile (qFile, "r");
 			
 			
-			
-				String line;
+				String line="";
 				boolean br = false;
 				br2=false;
-				//int j=0;
+				//int j=0; 
+				//long sin=0, sout=0;
+				//byte clear = 0;
+				//byte[] byteAr = new byte[50];
+				
 					try {
-						while (buffer.available() != 0) {
-			//bytein = buffer.readByte();
-			//byteAr[j] = bytein;
-			//j++;
-							line=buffer.readLine()+"\n";			
-		//	if ((char)bytein!=cs){	
+						while (buffer.available() > 0) {
+							// byte bytein = buffer.readByte();
+						
+							 line=buffer.readLine()+"\n";;
+							 
+							//byteAr[j] = bytein;
+							//j++;
+							
+					//	if(bytein == 13){
+							//sin = buffer.getFilePointer();
+							//byteAr = new byte [j];
+							//sout = sin;
+							//j=0;
+						
+							//byteAr = new byte[len.length()];
+							//for (int k = 0; k<len.length(); k++) {
+
+						
+									
 				
-				//line=byteAr.toString()+"\n";
-				
-		//line = (Char)buffer.readByte()) != null		
+				//line=new String(byteAr);
+				//System.out.println(line);
+	
 							if (line.contains(cs4)) br=false;
 							if (br) lineRotate = trimLine(line);
 							if (line.contains(cs3)) br=true;
@@ -134,7 +152,7 @@ public class RunFiles implements Runnable{
 							
 							if (line.contains(cs10)) linePlate = line.substring(12);
 														
-							dFile.writeBytes(line);
+							dFile.write(line.getBytes());
 																					
 							if (line.contains(cs1)){
 							
@@ -144,12 +162,14 @@ public class RunFiles implements Runnable{
 								//System.out.println(bar1);
 								bar1=bar1+bar;
 								setBar(bar1);
-								for(String date: treangle) {dFile.writeBytes(date+"\n");
+								for(String date: treangle) {dFile.write((date+"\n").getBytes());
 															if (date.contains(cs2)) break;
 										}
 									}
-							//byteAr.clear();
-								//}
+							//Arrays.fill(byteAr, clear);
+							
+							//	j = 0;
+							//	}
 						}
 						dFile.flush();
 						buffer.close();

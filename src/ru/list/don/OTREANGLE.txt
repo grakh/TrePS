@@ -1,11 +1,30 @@
 %TREANGL
 gsave
-%!PS-Adobe-1.0
+
 % По умолчанию, постскрипт использует единицу измерения 1 пункт=1/72 дюйма, 
 /infoFile (1.14 FAH ) def
+
+/setpos { % x-abs y-abs  setpos  -
+    matrix defaultmatrix transform % x' y'  %to device space
+    itransform % x y  %back to current user space
+    translate
+} def
+
+/rotateto { % angle  rotateto  -
+    matrix rotate % create a rotation matrix
+    dup 4
+    matrix currentmatrix 4 2 getinterval %get the current translation
+    putinterval setmatrix % put translation into rot. matrix and install
+} bind def
+
             % currentpagedevice /PageSize get  %% stack has array [width height]
             % 0 0 moveto                       %% start at bottom left
+
+%-90 rotateto
+%-90 rotate
+0 0 setpos
 	0 0 translate
+1 1 scale   % or 1 -1 scale for flip  (ViewingOrientation normal 0 1 -1 0 flip ViewingOrientation: 1 0 0 1)
 	% 0 setgray
 	% /DeviceRGB setcolorspace
     % 0.96 0.96 0.96 setcolor
@@ -18,7 +37,6 @@ dup		% дублировать значение на вершине стека
 /pageheight currentpagedevice /PageSize get 1 get def
 	0 0 translate
 /mmh pageheight 8 sub def
-1 1 scale
 /text {
 	/Helvetica findfont	% взять шрифт Helvetica
 	2 scalefont	% растянуть до размера 8 (у нас - мм!)

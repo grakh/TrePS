@@ -39,7 +39,7 @@ public class RunFiles implements Runnable{
 	private String pathik;
 	JProgressBar progressBar;
 	private boolean br2=false, br3=false, trFile=false;
-	String lineRotate = "";
+	String lineRotate = "%-90 rotate", scaleM = "1 1 scale";
 	//private RandomAccessFile buffer;
 	
 	
@@ -73,6 +73,8 @@ public class RunFiles implements Runnable{
 		CharSequence cs4 = "%%EndSetup";
 		CharSequence cs9 = "%%BeginPageSetup";
 		CharSequence cs10 = "%%PlateColor:";
+		CharSequence cs11 = "%%EndDefaults";
+		CharSequence cs12 = "%%BeginDefaults";
 		char cs = '\n';
 		
 
@@ -143,12 +145,12 @@ public class RunFiles implements Runnable{
 				//System.out.println(line);
 	
 							if (line.contains(cs4)) br=false;
-							if (br) lineRotate = trimLine(line);
+							if (br) trimLine(line);
 							if (line.contains(cs3)) br=true;
 							
-							if (line.contains(cs1)) br2=false;
-							if (br2) line = trimLineIn(line);
-							if (line.contains(cs9)) br2=true;
+							if (line.contains(cs11)) br2=false;
+							if (br2) trimLineIn(line);
+							if (line.contains(cs12)) br2=true;
 							
 							if (line.contains(cs10)) linePlate = line.substring(12);
 														
@@ -158,7 +160,8 @@ public class RunFiles implements Runnable{
 							
 								counter++;
 								treangle[4] = "/infoFile ("+status+counter+linePlate+") def";
-								treangle[8] = lineRotate;
+								treangle[23] = lineRotate;
+								treangle[26] = scaleM;
 								//System.out.println(bar1);
 								bar1=bar1+bar;
 								setBar(bar1);
@@ -198,36 +201,43 @@ public class RunFiles implements Runnable{
 		//System.out.println(bart);
 	}
 	
-	String trimLine(String line){
+	void trimLine(String line){
 				
 		CharSequence cs5 = "Tl";
 		CharSequence cs6 = "rotate";
-		CharSequence cs61 = "90 rotate";
+		CharSequence cs61 = "90.0 rotate";
 		//System.out.println(line);
-		if (line.contains(cs5)) {
+		/*if (line.contains(cs5)) {
 			String[] lR = line.split(" ");
 			lineRotate = lR[0]+" floor neg "+lR[1]+" floor neg translate\n";
 			System.out.println(lineRotate);
 		};
 		//if (line.contains(cs6)) line = "\n";
 		//if (line.contains(cs61)) trFile=true;
+		*/
 		
-		return lineRotate;
+		if (line.contains(cs6)) lineRotate = "-90 rotate"; 
+		
+		//return lineRotate;
 	}
 	
-	String trimLineIn(String line){
-		CharSequence cs7 = "Adobe_AGM_Core/begin";
+	void trimLineIn(String line){
+		//CharSequence cs7 = "Adobe_AGM_Core/begin";
 		//CharSequence cs71 = "Adobe_AGM_Utils begin";
-		CharSequence cs8 = "Adobe_AGM_Core/end";
+		//CharSequence cs8 = "Adobe_AGM_Core/end";
 		//CharSequence cs81 = "Adobe_AGM_Image/ps gx";
-		
+		CharSequence cs72 = "%%ViewingOrientation:";
 		//if (line.contains(cs7)||line.contains(cs71)) br3 = true;
 		//if (br3) {if (line.contains(cs8)||line.contains(cs81)) br3 = false; line = "\n";}
-		if (line.contains(cs7)) br3 = true;
-		if (br3) {if (line.contains(cs8)) br3 = false; line = "\n";}
+		//if (line.contains(cs7)) br3 = true;
+		//if (br3) {if (line.contains(cs8)) br3 = false; line = "\n";}
 				//trFile=true;
 		//System.out.println(line);
-		return line;
+		if (line.contains(cs72)) {
+			String[] l = line.split(" ");
+			if (l[1] == "1") scaleM = "1 -1 scale"; 
+		}
+		//return line;
 	}
 	
 }

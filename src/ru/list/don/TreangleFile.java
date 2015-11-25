@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
  class TreangleFile {
 
 	File treangleFile;
-	String trF = "TREANGLE.txt";	
+	String trF = "OTREANGLE.txt";	
 		
 		int i=0;
 

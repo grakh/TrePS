@@ -25,6 +25,8 @@ gsave
 0 0 setpos
 	0 0 translate
 1 1 scale   % or 1 -1 scale for flip  (ViewingOrientation normal 0 1 -1 0 flip ViewingOrientation: 1 0 0 1)
+	
+	%current transformation matrix 
 	% 0 setgray
 	% /DeviceRGB setcolorspace
     % 0.96 0.96 0.96 setcolor

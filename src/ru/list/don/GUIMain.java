@@ -21,7 +21,7 @@ public class GUIMain {
 	JFrame mainForm;
 	JPanel buttonPanel, fieldPanel, statusPanel, runPanel;
 	JMenuBar menuBar;
-	JButton buttonOpen, buttonRun, buttonExit, buttonRemove, buttonInfo;
+	JButton buttonOpen, buttonRun, buttonExit, buttonRemove, buttonInfo, buttonNew;
 	int counter;
 	JLabel labelNamber, labelKontrAgent, labelPhotoPolimer, labelRoute, labelLineatura, labelCountPoliner;
 	JLabel status, running;
@@ -30,7 +30,7 @@ public class GUIMain {
 	String[] infoLine, listik, treangle;
     JProgressBar progressBar;
     JScrollPane scroll;
-    String path, pathOpen, version = "Version 2.1b";
+    String path, pathOpen, version = "Version 2.2a";
 	int count = 0;
 	OpenPath oPath = new OpenPath();
     
@@ -119,15 +119,36 @@ public class GUIMain {
 		//buttonCenterPanel.setLayout(new BoxLayout(buttonCenterPanel, BoxLayout.Y_AXIS));
 		cField.weighty = 0.5;
 		cButton.weighty = 0.5;
+		
+		buttonNew = new JButton("New");
+		buttonNew.setEnabled(false);
+		buttonNew.addActionListener(new FileNew());
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 1; 
+		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
+		cButton.gridy = 0; 
+		cButton.insets = new Insets(10, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 30;
+		cButton.weightx = 0.0;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
+		buttonPanel.add(buttonNew, cButton);
         
 		buttonOpen = new JButton("Open");
 		buttonOpen.addActionListener(new FileOpen());
-		cButton.fill = GridBagConstraints.HORIZONTAL;
-		cButton.insets = new Insets(10, 10, 0, 10);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.ipady = 20;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
-		cButton.weighty = 0;
-		cButton.gridx = 0; 
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 1; 
+		cButton.gridx = 1; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 0; 
+		cButton.insets = new Insets(10, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 30;
+		cButton.weightx = 0.5;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
 		buttonPanel.add(buttonOpen, cButton);
 		
 		String txt =""; //{"11","22","33","44","55","66"};
@@ -140,61 +161,83 @@ public class GUIMain {
 		//listFiles.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		listFiles.setVisibleRowCount(0);
 		scroll = new JScrollPane(listFiles, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//scroll.setVerticalScrollBarPolicy(0);
-		//scroll.getViewport().setView(listFiles);
-		//cButton.insets = new Insets(20, 5, 0, 0);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.ipady = 70;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
-		cButton.ipadx = 50;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
-		cButton.weighty = 0;
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 2; 
+		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 1; 
+		cButton.insets = new Insets(20, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 80;
+		cButton.weightx = 0.5;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0; 
 		buttonPanel.add(scroll, cButton);
+		
 		buttonRemove = new JButton("Remove file");
 		buttonRemove.setEnabled(false);
 		buttonRemove.addActionListener(new FileRemove());
-		cButton.ipady = 5;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
-		//cButton.ipadx = 50;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
-		cButton.weighty = 0;
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 2; 
+		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 2; 
+		cButton.insets = new Insets(10, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 10;
+		cButton.weightx = 0.0;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
 		buttonPanel.add(buttonRemove, cButton);
 		
 		buttonInfo = new JButton("Info");
 		buttonInfo.setEnabled(false);
 		buttonInfo.addActionListener(new FileInfo());
-		cButton.insets = new Insets(40, 10, 0, 150);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.fill = GridBagConstraints.HORIZONTAL;
-		cButton.ipadx = 10;
-		cButton.ipady = 30;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
-		//cButton.weightx = 0;
-		//cButton.weighty = 0;
-        cButton.gridx = 0; 
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 1; 
+		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 3; 
-		//runPanel.add(buttonInfo);
+		cButton.insets = new Insets(10, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 30;
+		cButton.weightx = 0.0;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
 		buttonPanel.add(buttonInfo, cButton);
 		
 		buttonRun = new JButton("Run");
 		buttonRun.setEnabled(false);
 		buttonRun.addActionListener(new FileRun());
-		//runPanel.add(buttonRun);
-		cButton.insets = new Insets(40, 100, 0, 10);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.fill = GridBagConstraints.HORIZONTAL;
-		cButton.ipady = 30;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
-		cButton.weighty = 0;
-        cButton.gridx = 0; 
+		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 1; 
+		cButton.gridx = 1; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 3; 
+		cButton.insets = new Insets(10, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 30;
+		cButton.weightx = 0.0;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
 		buttonPanel.add(buttonRun, cButton);
 		
 		
 		buttonExit = new JButton("Exit");
 		buttonExit.addActionListener(new FileExit());
-		cButton.fill = GridBagConstraints.HORIZONTAL;
-		cButton.ipady = 10;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.weighty = 1.0;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.anchor = GridBagConstraints.SOUTH; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 
-		cButton.insets = new Insets(10, 10, 0, 10);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-        //c.gridx = 1;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Button 2 
-		cButton.gridwidth = 1;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		cButton.gridy = 4;       // пїЅ 3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
-		buttonPanel.add(buttonExit, cButton);
+		cButton.anchor = GridBagConstraints.SOUTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
+		cButton.fill   = GridBagConstraints.HORIZONTAL;  
+		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
+		cButton.gridwidth  = 2; 
+		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
+		cButton.gridy = 4; 
+		cButton.insets = new Insets(25, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
+		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipady = 10;
+		cButton.weightx = 0.0;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
+		cButton.weighty = 0.0;
+		cButton.anchor = GridBagConstraints.SOUTH; // c.anchor = GridBagConstraints.PAGE_END; // установить кнопку в конец окна
+				buttonPanel.add(buttonExit, cButton);
 		//buttonPanel.add(BorderLayout.CENTER, buttonCenterPanel);
 		
 		

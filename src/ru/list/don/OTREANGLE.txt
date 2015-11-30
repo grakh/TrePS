@@ -27,7 +27,7 @@ gsave
 1 1 scale   % or 1 -1 scale for flip  (ViewingOrientation normal 0 1 -1 0 flip ViewingOrientation: 1 0 0 1)
 	
 	%current transformation matrix 
-	% 0 setgray
+	 0 setgray
 	% /DeviceRGB setcolorspace
     % 0.96 0.96 0.96 setcolor
 	% fill
@@ -45,18 +45,18 @@ dup		% дублировать значение на вершине стека
 	setfont		% установить выбранный шрифт
 	scale		% растянуть в это количество раз по обеим координатам
   	0 0 moveto	% перейти в точку (0мм, 0мм)
-
     	infoFile show	% написать слово текущим шрифтом
        } def
 gsave
 	rect mmh translate
-	text
+	0 setgray text
 grestore
 /treangl {
+	0 setgray
 	0 rect moveto
 	0 0 lineto
 	rect 0 lineto
-	0.6 setlinewidth
+	0.7 setlinewidth
 	stroke
               } def
 	0 0 translate

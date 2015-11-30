@@ -30,7 +30,7 @@ public class GUIMain {
 	String[] infoLine, listik, treangle;
     JProgressBar progressBar;
     JScrollPane scroll;
-    String path, pathOpen, version = "Version 2.3b";
+    String path, pathOpen, version = "Version 3.0b";
 	int count = 0;
 	OpenPath oPath = new OpenPath();
     

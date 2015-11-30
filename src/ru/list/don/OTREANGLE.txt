@@ -18,7 +18,7 @@ gsave
 } bind def
 
             % currentpagedevice /PageSize get  %% stack has array [width height]
-            % 0 0 moveto                       %% start at bottom left
+            matrix defaultmatrix setmatrix
 
 %-90 rotateto
 %-90 rotate

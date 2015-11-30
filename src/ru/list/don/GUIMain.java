@@ -30,7 +30,7 @@ public class GUIMain {
 	String[] infoLine, listik, treangle;
     JProgressBar progressBar;
     JScrollPane scroll;
-    String path, pathOpen, version = "Version 2.2a";
+    String path, pathOpen, version = "Version 2.3b";
 	int count = 0;
 	OpenPath oPath = new OpenPath();
     
@@ -121,7 +121,7 @@ public class GUIMain {
 		cButton.weighty = 0.5;
 		
 		buttonNew = new JButton("New");
-		buttonNew.setEnabled(false);
+		buttonNew.setEnabled(true);
 		buttonNew.addActionListener(new FileNew());
 		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
 		cButton.fill   = GridBagConstraints.HORIZONTAL;  
@@ -161,6 +161,7 @@ public class GUIMain {
 		//listFiles.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		listFiles.setVisibleRowCount(0);
 		scroll = new JScrollPane(listFiles, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//scroll.setPreferredSize(new Dimension(200, 100));
 		cButton.anchor = GridBagConstraints.NORTH; //Поле anchor задает выравнивание компонента внутри отведенного для него пространства
 		cButton.fill   = GridBagConstraints.HORIZONTAL;  
 		cButton.gridheight = 1; //Поля gridwidth и gridheight определяют количество ячеек, занимаемых добавляемым компонентом.
@@ -168,7 +169,7 @@ public class GUIMain {
 		cButton.gridx = 0; //Поля gridx и gridy задают, соответственно, номер столбца и номер строки для ячейки, в которую будет помещен компонент
 		cButton.gridy = 1; 
 		cButton.insets = new Insets(20, 10, 0, 10);//Поле insets позволяет задать для компонента отступы от краев выделенной ему области
-		cButton.ipadx = 0;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
+		cButton.ipadx = 110;//С помощью полей ipadx и ipady вы можете указать, что размеры компонента необходимо увеличить на заданное количество пикселов
 		cButton.ipady = 80;
 		cButton.weightx = 0.5;//Эти поля определяют стратегию изменения размеров компонента, отвечая за выделение пространства для столбцов (weightx) и строк (weighty).
 		cButton.weighty = 0.0; 
@@ -421,8 +422,19 @@ public class GUIMain {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("New");
-			
+			lm1.clear();
+			buttonRemove.setEnabled(false);
+			buttonInfo.setEnabled(false);
+			buttonRun.setEnabled(false);
+			progressBar.setValue(0);
+			namber.setText("");
+			kontrAgent.setText("");
+			photoPolimer.setText("");
+			route.setText("");
+			lineatura.setText("");
+			countPoliner.setText("0");
+			okStatus.setText("Ok");
+
 			}
 		
 		}	
@@ -487,7 +499,7 @@ public class GUIMain {
 			lineatura.setText(infoLine[5]);
 			countPoliner.setText(c);
 			
-			okStatus.setText(photoPolimer.getText()+"_"+kontrAgent.getText().substring(0, kontrAgent.getText().indexOf(" "))+"_"+
+			okStatus.setText(photoPolimer.getText()+"_"+kontrAgent.getText().substring(1, kontrAgent.getText().indexOf(" "))+"_"+
 							namber.getText()+"_"+route.getText()+"_"+countPoliner.getText()+"-");
 			
 			kontrAgent.getDocument().addDocumentListener(new OkStatus(photoPolimer.getText(),kontrAgent.getText(),
@@ -537,7 +549,7 @@ public class GUIMain {
 
                 //   @Override
                    //public void run() {
-                       okStatus.setText(Pol+"_"+Ag.substring(0, Ag.indexOf(" "))+"_"+namber+"_"+route+"_"+count+"-");
+                       okStatus.setText(Pol+"_"+Ag.substring(1, Ag.indexOf(" "))+"_"+namber+"_"+route+"_"+count+"-");
                    }
               // });
 	      

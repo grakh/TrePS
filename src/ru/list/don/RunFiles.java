@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -20,6 +21,7 @@ import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,6 +43,7 @@ public class RunFiles implements Runnable{
 	private boolean br2=false, br3=false, trFile=false;
 	String lineRotate = "%-90 rotate", scaleM = "1 1 scale";
 	//private RandomAccessFile buffer;
+	private boolean flag=false;
 	
 	
 	RunFiles(String[] list, String pathik, int bar, JProgressBar progressBar,String status, boolean trFile) {
@@ -115,21 +118,23 @@ public class RunFiles implements Runnable{
 				String line="";
 				boolean br = false;
 				br2=false;
-				//int j=0; 
-				//long sin=0, sout=0;
-				//byte clear = 0;
-				//byte[] byteAr = new byte[50];
+				int j=0; 
+				long sin=0, sout=0;
+				byte clear = 0;
+				int bytein;
+				//byte[] byteAr;
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				
 					try {
+
 						while (buffer.available() > 0) {
-							// byte bytein = buffer.readByte();
-						
-							 line=buffer.readLine()+"\n";;
-							 
-							//byteAr[j] = bytein;
-							//j++;
+							 bytein = buffer.read();
+							 out.write(bytein);
 							
-					//	if(bytein == 13){
+							 //line=buffer.readLine()+"\n";
+
+							
+						if((char)bytein == '\n'){
 							//sin = buffer.getFilePointer();
 							//byteAr = new byte [j];
 							//sout = sin;
@@ -141,8 +146,10 @@ public class RunFiles implements Runnable{
 						
 									
 				
-				//line=new String(byteAr);
+				line=new String(out.toByteArray());
 				//System.out.println(line);
+							
+						
 	
 							if (line.contains(cs4)) br=false;
 							if (br) trimLine(line);
@@ -154,7 +161,7 @@ public class RunFiles implements Runnable{
 							
 							if (line.contains(cs10)) linePlate = line.substring(12);
 														
-							dFile.write(line.getBytes());
+							if(!flag) dFile.write(out.toByteArray());
 																					
 							if (line.contains(cs1)){
 							
@@ -171,9 +178,11 @@ public class RunFiles implements Runnable{
 									}
 							//Arrays.fill(byteAr, clear);
 							
-							//	j = 0;
-							//	}
+								//j = 0;
+							out.reset();
+								}
 						}
+						out.close();
 						dFile.flush();
 						buffer.close();
 						dFile.close();
@@ -216,7 +225,7 @@ public class RunFiles implements Runnable{
 		//if (line.contains(cs61)) trFile=true;
 		*/
 		
-		if (line.contains(cs6)) lineRotate = "-90 rotate"; 
+		//if (line.contains(cs6)) lineRotate = "-"+line; 
 		
 		//return lineRotate;
 	}
@@ -226,16 +235,19 @@ public class RunFiles implements Runnable{
 		//CharSequence cs71 = "Adobe_AGM_Utils begin";
 		//CharSequence cs8 = "Adobe_AGM_Core/end";
 		//CharSequence cs81 = "Adobe_AGM_Image/ps gx";
-		CharSequence cs72 = "%%ViewingOrientation:";
+		CharSequence cs72 = "__%%ViewingOrientation:";
 		//if (line.contains(cs7)||line.contains(cs71)) br3 = true;
 		//if (br3) {if (line.contains(cs8)||line.contains(cs81)) br3 = false; line = "\n";}
+		flag = false;
 		//if (line.contains(cs7)) br3 = true;
-		//if (br3) {if (line.contains(cs8)) br3 = false; line = "\n";}
-				//trFile=true;
+		//if (br3) {if (line.contains(cs8)) br3 = false; flag = true;}
+		//		trFile=true;
 		//System.out.println(line);
 		if (line.contains(cs72)) {
 			String[] l = line.split(" ");
-			if (l[1] == "1") scaleM = "1 -1 scale"; 
+			//System.out.println(l[1]);
+			if (l[1].equals("1")) scaleM = "1 -1 scale"; 
+			System.out.println(scaleM);
 		}
 		//return line;
 	}

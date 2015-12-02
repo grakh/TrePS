@@ -71,6 +71,8 @@ public class RunFiles implements Runnable{
 		//dFile = new FileWriter(list[i]+"_");
 
 		CharSequence cs1 = "%%EndPageSetup";
+		CharSequence cs101 = "%%PageTrailer";
+		CharSequence cs102 = "showpage";
 		CharSequence cs2 = "%END TREANGL";
 		CharSequence cs3 = "%%BeginSetup";
 		CharSequence cs4 = "%%EndSetup";
@@ -114,7 +116,7 @@ public class RunFiles implements Runnable{
 			//dFile = new RandomAccessFile (listps, "rw");
 			//buffer = new RandomAccessFile (qFile, "r");
 			
-			
+
 				String line="";
 				boolean br = false;
 				br2=false;
@@ -126,7 +128,7 @@ public class RunFiles implements Runnable{
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				
 					try {
-
+						
 						while (buffer.available() > 0) {
 							 bytein = buffer.read();
 							 out.write(bytein);
@@ -151,19 +153,19 @@ public class RunFiles implements Runnable{
 							
 						
 	
-							if (line.contains(cs4)) br=false;
-							if (br) trimLine(line);
-							if (line.contains(cs3)) br=true;
+							//if (line.contains(cs4)) br=false;
+							//if (br) trimLine(line);
+							//if (line.contains(cs3)) br=true;
 							
-							if (line.contains(cs11)) br2=false;
-							if (br2) trimLineIn(line);
-							if (line.contains(cs12)) br2=true;
+							//if (line.contains(cs11)) br2=false;
+							//if (br2) trimLineIn(line);
+							//if (line.contains(cs12)) br2=true;
 							
 							if (line.contains(cs10)) linePlate = line.substring(12);
-														
-							if(!flag) dFile.write(out.toByteArray());
-																					
-							if (line.contains(cs1)){
+							
+							if(line.contains(cs101)) flag=true;
+																										
+							if (flag & line.contains(cs102)){
 							
 								counter++;
 								treangle[4] = "/infoFile ("+status+counter+linePlate+") def";
@@ -175,7 +177,11 @@ public class RunFiles implements Runnable{
 								for(String date: treangle) {dFile.write((date+"\n").getBytes());
 															if (date.contains(cs2)) break;
 										}
+								flag=false;
 									}
+							
+							
+							dFile.write(out.toByteArray());
 							//Arrays.fill(byteAr, clear);
 							
 								//j = 0;

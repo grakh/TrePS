@@ -16,7 +16,7 @@ gsave
     matrix currentmatrix 4 2 getinterval %get the current translation
     putinterval setmatrix % put translation into rot. matrix and install
 } bind def
-
+	 
             % currentpagedevice /PageSize get  %% stack has array [width height]
             matrix defaultmatrix setmatrix
 
@@ -27,10 +27,10 @@ gsave
 1 1 scale   % or 1 -1 scale for flip  (ViewingOrientation normal 0 1 -1 0 flip ViewingOrientation: 1 0 0 1)
 	
 	%current transformation matrix 
-	 0 setgray
-	% /DeviceRGB setcolorspace
-    % 0.96 0.96 0.96 setcolor
-	% fill
+
+	%/DeviceGray setcolorspace
+     %0 setgray
+	 %fill
 72 25.4 div	% 1 мм = 72/25.4 пунктов
 dup		% дублировать значение на вершине стека
 /mm 72 25.4 div  def
@@ -40,6 +40,7 @@ dup		% дублировать значение на вершине стека
 	0 0 translate
 /mmh pageheight 8 sub def
 /text {
+	0 setgray
 	/Helvetica findfont	% взять шрифт Helvetica
 	2 scalefont	% растянуть до размера 8 (у нас - мм!)
 	setfont		% установить выбранный шрифт
@@ -48,16 +49,18 @@ dup		% дублировать значение на вершине стека
     	infoFile show	% написать слово текущим шрифтом
        } def
 gsave
-	rect mmh translate
-	0 setgray text
-grestore
-/treangl {
 	0 setgray
+	rect mmh translate
+	text
+grestore
+
+/treangl {
+	0 setgray 
 	0 rect moveto
 	0 0 lineto
 	rect 0 lineto
 	0.7 setlinewidth
-	stroke
+		stroke
               } def
 	0 0 translate
 	treangl

@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 public class QuantyFiles {
 	String[] list;
+	String [] ls;
 	File qFile;
 	int counter=0, enumStrok=0;
 	private boolean trFile =false;
@@ -30,6 +31,7 @@ public class QuantyFiles {
 		qFile = new File(list[i]);
 		CharSequence cs1 = "%%EndPageSetup";
 		CharSequence cs2 = "%TREANGL";
+		CharSequence cs3 = "%%Pages:";
 		CharSequence cs61 = "90 rotate";
 		CharSequence cs7 = "Adobe_AGM_Core/begin";
 		//System.out.println(line);
@@ -47,6 +49,7 @@ public class QuantyFiles {
 			//System.out.println(treangleFile.getParent());
 
 				String line;
+
 				
 			
 					while ((line = buffer.readLine()) != null) {
@@ -54,12 +57,13 @@ public class QuantyFiles {
 						counter=0; break;};
 						//System.out.println(line);
 						if (line.contains(cs61)||line.contains(cs7)) trFile =true;
-						if (line.contains(cs1)) counter++;
+						//if (line.contains(cs1)) counter++;
+						if (line.contains(cs3)) ls = line.split(" "); 
 						enumStrok++;
 					
 					}
 
-				
+					counter = counter+Integer.parseInt(ls[1]);
 				reader.close();	
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

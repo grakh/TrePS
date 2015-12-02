@@ -73,6 +73,7 @@ public class RunFiles implements Runnable{
 		CharSequence cs1 = "%%EndPageSetup";
 		CharSequence cs101 = "%%PageTrailer";
 		CharSequence cs102 = "showpage";
+		CharSequence cs103 = "@gs spg @gr";
 		CharSequence cs2 = "%END TREANGL";
 		CharSequence cs3 = "%%BeginSetup";
 		CharSequence cs4 = "%%EndSetup";
@@ -165,19 +166,19 @@ public class RunFiles implements Runnable{
 							
 							if(line.contains(cs101)) flag=true;
 																										
-							if (flag & line.contains(cs102)){
+							if (flag & line.contains(cs102)|| line.contains(cs103)){
 							
 								counter++;
 								treangle[4] = "/infoFile ("+status+counter+linePlate+") def";
-								treangle[23] = lineRotate;
-								treangle[26] = scaleM;
+								//treangle[23] = lineRotate;
+								//treangle[26] = scaleM;
 								//System.out.println(bar1);
 								bar1=bar1+bar;
 								setBar(bar1);
 								for(String date: treangle) {dFile.write((date+"\n").getBytes());
 															if (date.contains(cs2)) break;
 										}
-								flag=false;
+								//flag=false;
 									}
 							
 							

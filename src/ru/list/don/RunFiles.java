@@ -34,7 +34,7 @@ public class RunFiles implements Runnable{
 	Byte[] byteAr = null;
 	//FileWriter dFile;
 	int counter=0, bar=0, bar1=0;
-	String line, listps, status, linePlate;
+	String line, listps, status, linePlate, count;
 	  //FileChannel srcChannel = null;
 	  //FileChannel dstChannel = null;
 	RandomAccessFile dFile;
@@ -81,6 +81,7 @@ public class RunFiles implements Runnable{
 		CharSequence cs10 = "%%PlateColor:";
 		CharSequence cs11 = "%%EndDefaults";
 		CharSequence cs12 = "%%BeginDefaults";
+		CharSequence cs120 = "%%Page:";
 		char cs = '\n';
 		
 
@@ -165,11 +166,15 @@ public class RunFiles implements Runnable{
 							if (line.contains(cs10)) linePlate = line.substring(12);
 							
 							if(line.contains(cs101)) flag=true;
+							if(line.contains(cs120)) {
+								String[] linePage = line.split(" ");
+								count = linePage[2];
+							};
 																										
 							if (flag & line.contains(cs102)|| line.contains(cs103)){
 							
 								counter++;
-								treangle[4] = "/infoFile ("+status+counter+linePlate+") def";
+								treangle[4] = "/infoFile ("+status+count+linePlate+") def";
 								//treangle[23] = lineRotate;
 								//treangle[26] = scaleM;
 								//System.out.println(bar1);
